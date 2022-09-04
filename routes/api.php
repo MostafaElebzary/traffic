@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\TransactionsController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/update-profile', [UserController::class, 'updateProfile']);
 Route::get('/states', [UserController::class, 'states']);
+
+
+Route::get('/get-transaction', [TransactionsController::class, 'transactions']);
+Route::post('/add-transaction', [TransactionsController::class, 'AddTransaction']);
+Route::post('/edit-transaction', [TransactionsController::class, 'EditTransaction']);
+Route::get('/delete-transaction/{id}', [TransactionsController::class, 'deleteTransaction']);
