@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\TransactionsController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ReportsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,11 @@ Route::get('/get-transaction', [TransactionsController::class, 'transactions']);
 Route::post('/add-transaction', [TransactionsController::class, 'AddTransaction']);
 Route::post('/edit-transaction', [TransactionsController::class, 'EditTransaction']);
 Route::get('/delete-transaction/{id}', [TransactionsController::class, 'deleteTransaction']);
+
+
+
+
+Route::group(['prefix' => 'reports'], function () {
+    Route::get('/with_state', [ReportsController::class, 'with_state']);
+
+});
