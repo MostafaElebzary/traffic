@@ -17,7 +17,8 @@ class TransactionResource extends JsonResource
         return [
             'id' => (int)$this->id,
             'transaction_date' => (string)$this->transaction_date,
-            'state_id' => (string)$this->State->name,
+            'state_id' => (int)$this->state_id,
+            'state' => (string)$this->State->name,
             'num_private_transport' => (int)$this->num_private_transport,
             'price_private_transport' => (double)$this->price_private_transport,
             'num_taxi_motorbike' => (int)$this->num_taxi_motorbike,
