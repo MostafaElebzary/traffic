@@ -11,30 +11,30 @@
     <title>Report</title>
 
 
-    <link rel="shortcut icon" type="image/png" href="{{url('public/app-assets/images/ico/ico.jpg')}}">
-    {{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--}}
-    {{--          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--}}
-    <link rel="stylesheet" href="{{url('public/app-assets/css/bootstrap.css')}}"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+{{--    <link rel="shortcut icon" type="image/png" href="{{url('public/app-assets/images/ico/ico.jpg')}}">--}}
+{{--    --}}{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--}}
+{{--    --}}{{--          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--}}
+{{--    <link rel="stylesheet" href="{{url('public/app-assets/css/bootstrap.css')}}"--}}
+{{--          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--}}
 
-    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/bootstrap.css')}}">
-    <!-- font icons-->
-    <link rel="stylesheet" type="text/css">
-    <!-- END VENDOR CSS-->
-    <!-- BEGIN ROBUST CSS-->
-    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/bootstrap-extended.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/app.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/colors.css')}}">
-    <!-- END ROBUST CSS-->
-    <!-- BEGIN Page Level CSS-->
-    <link rel="stylesheet" type="text/css"
-          href="{{url('public/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
-    <link rel="stylesheet" type="text/css"
-          href="{{url('public/app-assets/css/core/menu/menu-types/vertical-overlay-menu.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/core/colors/palette-gradient.css')}}">
-    <!-- END Page Level CSS-->
-    <!-- BEGIN Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="{{url('public/assets/css/style.css')}}">
+{{--    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/bootstrap.css')}}">--}}
+{{--    <!-- font icons-->--}}
+{{--    <link rel="stylesheet" type="text/css">--}}
+{{--    <!-- END VENDOR CSS-->--}}
+{{--    <!-- BEGIN ROBUST CSS-->--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/bootstrap-extended.css')}}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/app.css')}}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/colors.css')}}">--}}
+{{--    <!-- END ROBUST CSS-->--}}
+{{--    <!-- BEGIN Page Level CSS-->--}}
+{{--    <link rel="stylesheet" type="text/css"--}}
+{{--          href="{{url('public/app-assets/css/core/menu/menu-types/vertical-menu.css')}}">--}}
+{{--    <link rel="stylesheet" type="text/css"--}}
+{{--          href="{{url('public/app-assets/css/core/menu/menu-types/vertical-overlay-menu.css')}}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{url('public/app-assets/css/core/colors/palette-gradient.css')}}">--}}
+{{--    <!-- END Page Level CSS-->--}}
+{{--    <!-- BEGIN Custom CSS-->--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{url('public/assets/css/style.css')}}">--}}
     <style>
         table, th, td {
             border: 1px solid black;

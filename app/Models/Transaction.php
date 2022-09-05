@@ -18,6 +18,7 @@ class Transaction extends Model
         'num_driving', 'price_driving'
     ];
 
+
     public function State()
     {
         return $this->belongsTo(State::class, 'state_id');
