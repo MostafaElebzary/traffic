@@ -40,7 +40,7 @@ class ReportsController extends Controller
             $num = rand(1000, 9999);
             $pdf->save(public_path() . '/reports/' . $num . '.pdf');
 
-            return response()->json(msgdata(success(), trans('lang.success'), env('APP_URL')  .'/reports/'.$num.'.pdf'));
+            return response()->json(msgdata(success(), trans('lang.success'), url('/')  .'/reports/'.$num.'.pdf'));
         } else {
             return msgdata(failed(), trans('lang.not_authorized'), (object)[]);
         }
