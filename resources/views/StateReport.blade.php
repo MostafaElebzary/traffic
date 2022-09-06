@@ -30,6 +30,78 @@
                     <thead>
                     <tr>
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                            التاريخ
+                        </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                             ملاكي - نقل
+                        </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                             اجره - دراجه ناريه
+                        </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                             ملاكي بدون فحص
+                        </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                             تصاريح + بيانات
+                        </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                             قياده
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php
+                    $total_private_transport = 0;
+                    $total_taxi_motorbike = 0;
+                    $total_private_without_exam = 0;
+                    $total_permissions_data = 0;
+                    $total_driving = 0;
+                    @endphp
+                    @foreach($data['all_rows'] as $row)
+                        <tr>
+                            <td style="text-align: center">{{$row->transaction_date}}</td>
+                            @php
+                                $private_transport = $row->num_private_transport * $row->price_private_transport ;
+                                $total_private_transport +=   $private_transport ;
+                            @endphp
+                            <td style="text-align: center">{{$row->num_private_transport}} * {{$row->price_private_transport}} = {{ $private_transport }}</td>
+
+                            @php
+                                $taxi_motorbike = $row->num_taxi_motorbike * $row->price_taxi_motorbike ;
+                                $total_taxi_motorbike +=   $taxi_motorbike ;
+                            @endphp
+                            <td style="text-align: center">{{$row->num_taxi_motorbike}} * {{$row->price_taxi_motorbike}} = {{ $taxi_motorbike }}</td>
+
+                            @php
+                                $private_without_exam = $row->num_private_without_exam * $row->price_private_without_exam ;
+                                $total_private_without_exam +=   $private_without_exam ;
+                            @endphp
+                            <td style="text-align: center">{{$row->num_private_without_exam}} * {{$row->price_private_without_exam}} = {{ $private_without_exam }}</td>
+
+
+                            @php
+                                $permissions_data = $row->num_permissions_data * $row->price_permissions_data ;
+                                $total_permissions_data +=   $permissions_data ;
+                            @endphp
+                            <td style="text-align: center">{{$row->num_permissions_data}} * {{$row->price_permissions_data}} = {{ $permissions_data }}</td>
+
+                            @php
+                                $driving = $row->num_driving * $row->price_driving ;
+                                $total_driving +=   $driving ;
+                            @endphp
+                            <td style="text-align: center">{{$row->num_driving}} * {{$row->price_driving}} = {{ $driving }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div>
+                <table
+                    style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;width:100%">
+                    <thead>
+                    <tr>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             اجمالي ملاكي - نقل
                         </th>
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
@@ -48,11 +120,11 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td style="text-align: center">{{$data['sum_price_private_transport']}}</td>
-                        <td style="text-align: center">{{$data['sum_price_taxi_motorbike']}}</td>
-                        <td style="text-align: center">{{$data['sum_price_private_without_exam']}}</td>
-                        <td style="text-align: center">{{$data['sum_price_permissions_data']}}</td>
-                        <td style="text-align: center">{{$data['sum_price_driving']}}</td>
+                        <td style="text-align: center">{{ $total_private_transport }}</td>
+                        <td style="text-align: center">{{ $total_taxi_motorbike }}</td>
+                        <td style="text-align: center">{{ $total_private_without_exam }}</td>
+                        <td style="text-align: center">{{ $total_permissions_data }}</td>
+                        <td style="text-align: center">{{ $total_driving }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -61,7 +133,7 @@
         <div class="row">
             <div>
                 <h5 style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;">
-                    الاجمالي {{$data['total']}}
+                    الاجمالي :  {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving  }}
                 </h5>
             </div>
 

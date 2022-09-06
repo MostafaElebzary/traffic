@@ -35,6 +35,8 @@ class ReportsController extends Controller
             $data['sum_price_driving'] = Transaction::where('state_id',$request->state_id)->whereBetween('created_at', [$request->from, $request->to])->sum('price_driving');
             $data['total'] = $data['sum_price_private_transport'] + $data['sum_price_taxi_motorbike'] + $data['sum_price_private_without_exam'] + $data['sum_price_permissions_data'] + $data['sum_price_driving'] ;
 
+            $data['all_rows'] = Transaction::where('state_id',$request->state_id)->whereBetween('created_at', [$request->from, $request->to])->get();
+
             $state = State::findOrFail($request->state_id);
             $pdf = PDF::loadView('StateReport', ['data' => $data,'state'=>$state,'from'=>$request->from , 'to'=>$request->to]);
             $num = rand(1000, 9999);
