@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 {{--    <meta charset="utf-8">--}}
 {{--    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>--}}
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Report</title>
-
-
 {{--    <link rel="shortcut icon" type="image/png" href="{{url('public/app-assets/images/ico/ico.jpg')}}">--}}
 {{--    --}}{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--}}
 {{--    --}}{{--          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--}}
@@ -42,13 +37,11 @@
 
     </style>
 </head>
-
 <body>
 <div class="card">
     <div class="card-body">
         <div class="row">
             <div>
-
                 <h4 class="card-title"
                     style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;"> كشف حساب للفرع {{$branch->name}} </h4>
 
@@ -68,29 +61,21 @@
                 </h5>
                 <h5  style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;">
                       رصيد دئن {{$total_creditor}}
-
-
                 </h5>
             </div>
 
         </div>
     </div>
-
-
     <div class="card-body">
-
-
         <div style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;">
             <h4 class="card-title"> المخالفات المحررة </h4>
         </div>
-
         {{-- branch_irregularities--}}
         <div>
             <table
                 style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;width:100%">
                 <thead>
                 <tr>
-
                     <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center"> الوصف
 
                     </th>
@@ -104,15 +89,12 @@
                         المخالفه
                     </th>
                     <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">#</th>
-
-
                 </tr>
                 </thead>
                 <tbody>
                 @php
                     $id = 1;
                 @endphp
-
                 @foreach($branch_irregularities as $temp)
                     <tr>
                          <td>{{$temp->desc}}</td>
@@ -120,15 +102,11 @@
                         <td>{{$temp->value}}</td>
                         <td>{{$temp->name}}</td>
                         <th scope="row">{{$id}}</th>
-
-
                     </tr>
                     @php
                         $id++;
                     @endphp
-
                 @endforeach
-
                 </tbody>
 
             </table>
