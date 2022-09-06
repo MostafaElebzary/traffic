@@ -57,7 +57,6 @@
                     </tbody>
                 </table>
             </div>
->>>>>>> 0a4ee0f8dbb5e99cc08359099fd904e5fa7855a7
         </div>
         <div class="row">
             <div>
