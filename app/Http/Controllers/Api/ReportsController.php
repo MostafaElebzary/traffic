@@ -28,21 +28,52 @@ class ReportsController extends Controller
                 return response()->json(msg(failed(), $validate->messages()->first()));
             }
 
-            $data['sum_price_private_transport'] = Transaction::where('state_id',$request->state_id)->whereBetween('created_at', [$request->from, $request->to])->sum('price_private_transport');
-            $data['sum_price_taxi_motorbike'] = Transaction::where('state_id',$request->state_id)->whereBetween('created_at', [$request->from, $request->to])->sum('price_taxi_motorbike');
-            $data['sum_price_private_without_exam'] = Transaction::where('state_id',$request->state_id)->whereBetween('created_at', [$request->from, $request->to])->sum('price_private_without_exam');
-            $data['sum_price_permissions_data'] = Transaction::where('state_id',$request->state_id)->whereBetween('created_at', [$request->from, $request->to])->sum('price_permissions_data');
-            $data['sum_price_driving'] = Transaction::where('state_id',$request->state_id)->whereBetween('created_at', [$request->from, $request->to])->sum('price_driving');
+            $data['sum_price_private_transport'] = Transaction::where('state_id',$request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->sum('price_private_transport');
+            $data['sum_price_taxi_motorbike'] = Transaction::where('state_id',$request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->sum('price_taxi_motorbike');
+            $data['sum_price_private_without_exam'] = Transaction::where('state_id',$request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->sum('price_private_without_exam');
+            $data['sum_price_permissions_data'] = Transaction::where('state_id',$request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->sum('price_permissions_data');
+            $data['sum_price_driving'] = Transaction::where('state_id',$request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->sum('price_driving');
             $data['total'] = $data['sum_price_private_transport'] + $data['sum_price_taxi_motorbike'] + $data['sum_price_private_without_exam'] + $data['sum_price_permissions_data'] + $data['sum_price_driving'] ;
 
-            $data['all_rows'] = Transaction::where('state_id',$request->state_id)->whereBetween('created_at', [$request->from, $request->to])->get();
+            $data['all_rows'] = Transaction::where('state_id',$request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->orderBy('transaction_date','asc')->get();
 
             $state = State::findOrFail($request->state_id);
             $pdf = PDF::loadView('StateReport', ['data' => $data,'state'=>$state,'from'=>$request->from , 'to'=>$request->to]);
-            $num = rand(1000, 9999);
-            $pdf->save(public_path() . '/reports/' . $num . '.pdf');
+            $name = rand(1000, 9999). time().'.pdf';
+            $pdf->save(public_path() . '/reports/' . $name );
 
-            return response()->json(msgdata(success(), trans('lang.success'), url('/')  .'/reports/'.$num.'.pdf'));
+            return response()->json(msgdata(success(), trans('lang.success'), url('/')  .'/reports/'.$name));
+        } else {
+            return msgdata(failed(), trans('lang.not_authorized'), (object)[]);
+        }
+    }
+
+    public function without_state(Request $request)
+    {
+        $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
+        $user = check_jwt($jwt);
+        if ($user) {
+            $rule = [
+                'from' => 'required',
+                'to' => 'required|after_or_equal:' . $request->from,
+            ];
+            $validate = Validator::make($request->all(), $rule);
+            if ($validate->fails()) {
+                return response()->json(msg(failed(), $validate->messages()->first()));
+            }
+
+            $data['sum_price_private_transport'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->sum('price_private_transport');
+            $data['sum_price_taxi_motorbike'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->sum('price_taxi_motorbike');
+            $data['sum_price_private_without_exam'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->sum('price_private_without_exam');
+            $data['sum_price_permissions_data'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->sum('price_permissions_data');
+            $data['sum_price_driving'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->sum('price_driving');
+            $data['total'] = $data['sum_price_private_transport'] + $data['sum_price_taxi_motorbike'] + $data['sum_price_private_without_exam'] + $data['sum_price_permissions_data'] + $data['sum_price_driving'] ;
+            $data['all_rows'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->orderBy('transaction_date','asc')->get();
+
+            $pdf = PDF::loadView('Report', [ 'data' => $data , 'from'=>$request->from , 'to'=>$request->to]);
+            $name =  rand(1000, 9999) . time().'.pdf';
+            $pdf->save(public_path() . '/reports/' .$name);
+            return response()->json(msgdata(success(), trans('lang.success'), url('/')  .'/reports/'.$name));
         } else {
             return msgdata(failed(), trans('lang.not_authorized'), (object)[]);
         }
