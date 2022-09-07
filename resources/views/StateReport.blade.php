@@ -47,6 +47,10 @@
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                              قياده
                         </th>
+
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                            الاجمالي
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -65,31 +69,27 @@
                                 $total_private_transport +=   $private_transport ;
                             @endphp
                             <td style="text-align: center">{{$row->num_private_transport}} * {{$row->price_private_transport}} = {{ $private_transport }}</td>
-
                             @php
                                 $taxi_motorbike = $row->num_taxi_motorbike * $row->price_taxi_motorbike ;
                                 $total_taxi_motorbike +=   $taxi_motorbike ;
                             @endphp
                             <td style="text-align: center">{{$row->num_taxi_motorbike}} * {{$row->price_taxi_motorbike}} = {{ $taxi_motorbike }}</td>
-
                             @php
                                 $private_without_exam = $row->num_private_without_exam * $row->price_private_without_exam ;
                                 $total_private_without_exam +=   $private_without_exam ;
                             @endphp
                             <td style="text-align: center">{{$row->num_private_without_exam}} * {{$row->price_private_without_exam}} = {{ $private_without_exam }}</td>
-
-
                             @php
                                 $permissions_data = $row->num_permissions_data * $row->price_permissions_data ;
                                 $total_permissions_data +=   $permissions_data ;
                             @endphp
                             <td style="text-align: center">{{$row->num_permissions_data}} * {{$row->price_permissions_data}} = {{ $permissions_data }}</td>
-
                             @php
                                 $driving = $row->num_driving * $row->price_driving ;
                                 $total_driving +=   $driving ;
                             @endphp
                             <td style="text-align: center">{{$row->num_driving}} * {{$row->price_driving}} = {{ $driving }}</td>
+                            <td style="text-align: center">{{$private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving }}</td>
                         </tr>
                     @endforeach
                     </tbody>
