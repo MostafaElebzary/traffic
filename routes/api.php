@@ -36,5 +36,6 @@ Route::get('/delete-transaction/{id}', [TransactionsController::class, 'deleteTr
 
 Route::group(['prefix' => 'reports'], function () {
     Route::get('/with_state', [ReportsController::class, 'with_state']);
+    Route::get('/without_state', [ReportsController::class, 'without_state']);
 
 });
