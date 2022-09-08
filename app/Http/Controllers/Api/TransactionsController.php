@@ -24,7 +24,7 @@ class TransactionsController extends Controller
                 $query = $query->where('state_id', $request->state_id);
             }
 
-            $query = $query->paginate(10);
+            $query = $query->orderBy('id', 'desc')->paginate(10);
 
             $data = TransactionResource::collection($query)->response()->getData(true);
 
@@ -58,6 +58,12 @@ class TransactionsController extends Controller
             $validate = Validator::make($request->all(), $rule);
             if ($validate->fails()) {
                 return response()->json(msg(failed(), $validate->messages()->first()));
+            }
+            $is_exists = Transaction::where('state_id',$request->state_id)
+                ->where('transaction_date',$request->transaction_date)
+                ->first();
+            if ($is_exists){
+                return msgdata(failed(), "يوجد عمليه بهذا التاريخ لهذا المركز!", (object)[]);
             }
             $data = Transaction::create($validate->validated());
             $data = new TransactionResource($data);
