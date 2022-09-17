@@ -59,10 +59,10 @@ class TransactionsController extends Controller
             if ($validate->fails()) {
                 return response()->json(msg(failed(), $validate->messages()->first()));
             }
-            $is_exists = Transaction::where('state_id',$request->state_id)
-                ->where('transaction_date',$request->transaction_date)
+            $is_exists = Transaction::where('state_id', $request->state_id)
+                ->where('transaction_date', $request->transaction_date)
                 ->first();
-            if ($is_exists){
+            if ($is_exists) {
                 return msgdata(failed(), "يوجد عمليه بهذا التاريخ لهذا المركز!", (object)[]);
             }
             $data = Transaction::create($validate->validated());
