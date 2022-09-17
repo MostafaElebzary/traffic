@@ -14,7 +14,7 @@ class AddExpensesColumnToTransactions extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->double('expenses')->comment('مصروفات');
+            $table->double('expenses')->nullable()->comment('مصروفات');
         });
     }
 

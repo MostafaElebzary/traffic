@@ -50,7 +50,7 @@ class TransactionsController extends Controller
                 'price_permissions_data' => 'required|numeric',
                 'num_driving' => 'required|numeric',
                 'price_driving' => 'required|numeric',
-                'expenses' => 'required|numeric',
+                'expenses' => 'nullable|numeric',
 
 
             ];
@@ -92,7 +92,7 @@ class TransactionsController extends Controller
                 'price_permissions_data' => 'required|numeric',
                 'num_driving' => 'required|numeric',
                 'price_driving' => 'required|numeric',
-                'expenses' => 'required|numeric',
+                'expenses' => 'nullable|numeric',
                 'id' => 'required|exists:transactions,id',
 
 
