@@ -16,7 +16,6 @@ class TransactionsController extends Controller
         $user = check_jwt($jwt);
         if ($user) {
             $query = Transaction::query();
-
             if ($request->from && $request->to) {
                 $query = $query->whereBetween('transaction_date', [$request->from, $request->to]);
             }
@@ -51,6 +50,7 @@ class TransactionsController extends Controller
                 'price_permissions_data' => 'required|numeric',
                 'num_driving' => 'required|numeric',
                 'price_driving' => 'required|numeric',
+                'expenses' => 'required|numeric',
 
 
             ];
@@ -92,6 +92,7 @@ class TransactionsController extends Controller
                 'price_permissions_data' => 'required|numeric',
                 'num_driving' => 'required|numeric',
                 'price_driving' => 'required|numeric',
+                'expenses' => 'required|numeric',
                 'id' => 'required|exists:transactions,id',
 
 

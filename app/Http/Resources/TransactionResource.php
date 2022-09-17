@@ -29,6 +29,7 @@ class TransactionResource extends JsonResource
             'price_permissions_data' => (double)$this->price_permissions_data,
             'num_driving' => (int)$this->num_driving,
             'price_driving' => (double)$this->price_driving,
+            'expenses' => (double)$this->expenses,
 
         ];
     }
