@@ -47,6 +47,9 @@
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                              قياده
                         </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                             المصروفات
+                        </th>
 
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             الاجمالي
@@ -60,6 +63,7 @@
                     $total_private_without_exam = 0;
                     $total_permissions_data = 0;
                     $total_driving = 0;
+                    $total_expenses = 0;
                     @endphp
                     @foreach($data['all_rows'] as $row)
                         <tr>
@@ -89,7 +93,11 @@
                                 $total_driving +=   $driving ;
                             @endphp
                             <td style="text-align: center">{{$row->num_driving}} * {{$row->price_driving}} = {{ $driving }}</td>
-                            <td style="text-align: center">{{$private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving }}</td>
+                            @php
+                                $total_expenses +=  $row->expenses ;
+                            @endphp
+                            <td style="text-align: center"> {{ $row->expenses }}</td>
+                            <td style="text-align: center">{{$private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving - $row->expenses }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -116,6 +124,9 @@
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             اجمالي قياده
                         </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                            اجمالي المصروفات
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -125,6 +136,7 @@
                         <td style="text-align: center">{{ $total_private_without_exam }}</td>
                         <td style="text-align: center">{{ $total_permissions_data }}</td>
                         <td style="text-align: center">{{ $total_driving }}</td>
+                        <td style="text-align: center">{{ $total_expenses }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -133,7 +145,7 @@
         <div class="row">
             <div>
                 <h5 style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;">
-                    الاجمالي :  {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving  }}
+                    الاجمالي :  {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving - $total_expenses  }}
                 </h5>
             </div>
 
