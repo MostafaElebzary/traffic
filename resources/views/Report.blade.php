@@ -46,7 +46,9 @@
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             قياده
                         </th>
-
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                            المصروفات
+                        </th>
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             الاجمالي
                         </th>
@@ -58,6 +60,7 @@
                         $total_taxi_motorbike = 0;
                         $total_private_without_exam = 0;
                         $total_permissions_data = 0;
+                        $total_expenses = 0;
                         $total_driving = 0;
                         $first_date = '';
                         $total_date = 0;
@@ -66,10 +69,10 @@
                         @if($first_date != '')
                             @if($first_date != $row->transaction_date)
                                 <tr>
-                                    <td style="text-align: center" colspan="7">الاجمالي : {{$total_date}} </td>
+                                    <td style="text-align: center" colspan="8">الاجمالي : {{$total_date}} </td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: center" colspan="7"> </td>
+                                    <td style="text-align: center" colspan="8"> </td>
                                 </tr>
                                 @php
                                     $total_date = 0 ;
@@ -81,7 +84,7 @@
                                 $first_date = $row->transaction_date ;
                             @endphp
                             <tr>
-                                <td style="text-align: center" colspan="7">{{$row->transaction_date}}</td>
+                                <td style="text-align: center" colspan="8">{{$row->transaction_date}}</td>
                             </tr>
                         @endif
                         <tr>
@@ -116,8 +119,14 @@
                             @endphp
                             <td style="text-align: center">{{$row->num_driving}} * {{$row->price_driving}}
                                 = {{ $driving }}</td>
+
                             @php
-                                $total_row = $private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving ;
+
+                                $total_expenses +=   $row->expenses ;
+                            @endphp
+                            <td style="text-align: center">{{$row->expenses }}</td>
+                            @php
+                                $total_row = $private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving - $row->expenses  ;
                                 $total_date += $total_row ;
                             @endphp
                             <td style="text-align: center">{{ $total_row}}</td>
@@ -127,7 +136,7 @@
                     @endforeach
                     @if($first_date != '')
                             <tr>
-                                <td style="text-align: center" colspan="7">الاجمالي : {{$total_date}} </td>
+                                <td style="text-align: center" colspan="8">الاجمالي : {{$total_date}} </td>
                             </tr>
                             @php
                                 $total_date = 0 ;
@@ -157,6 +166,9 @@
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             اجمالي قياده
                         </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                            اجمالي المصروفات
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -166,6 +178,7 @@
                         <td style="text-align: center">{{ $total_private_without_exam }}</td>
                         <td style="text-align: center">{{ $total_permissions_data }}</td>
                         <td style="text-align: center">{{ $total_driving }}</td>
+                        <td style="text-align: center">{{ $total_expenses }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -175,7 +188,7 @@
             <div>
                 <h5 style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;">
                     الاجمالي
-                    : {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving  }}
+                    : {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving - $total_expenses }}
                 </h5>
             </div>
 
