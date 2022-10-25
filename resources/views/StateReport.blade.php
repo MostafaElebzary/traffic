@@ -19,7 +19,7 @@
             <div style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;">
                 تقرير المركز
                 <h4 class="card-title"> {{$state->name}} </h4>
-                من {{$from}}  الي   {{$to}}
+                من {{$from}} الي {{$to}}
             </div>
             {{-- branch_irregularities--}}
             <br>
@@ -32,21 +32,31 @@
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             التاريخ
                         </th>
-                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
-                             ملاكي - نقل
-                        </th>
-                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
-                             اجره - دراجه ناريه
-                        </th>
-                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
-                             ملاكي بدون فحص
-                        </th>
-                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
-                             تصاريح + بيانات
-                        </th>
-                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
-                             قياده
-                        </th>
+                        @if($type == null || $type == "private_transport")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                ملاكي - نقل
+                            </th>
+                        @endif
+                        @if($type == null || $type == "taxi_motorbike")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                اجره - دراجه ناريه
+                            </th>
+                        @endif
+                        @if($type == null || $type == "private_without_exam")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                ملاكي بدون فحص
+                            </th>
+                        @endif
+                        @if($type == null || $type == "permissions_data")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                تصاريح + بيانات
+                            </th>
+                        @endif
+                        @if($type == null || $type == "driving")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                قياده
+                            </th>
+                        @endif
 
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             الاجمالي
@@ -55,41 +65,79 @@
                     </thead>
                     <tbody>
                     @php
-                    $total_private_transport = 0;
-                    $total_taxi_motorbike = 0;
-                    $total_private_without_exam = 0;
-                    $total_permissions_data = 0;
-                    $total_driving = 0;
+                        $total_private_transport = 0;
+                        $total_taxi_motorbike = 0;
+                        $total_private_without_exam = 0;
+                        $total_permissions_data = 0;
+                        $total_driving = 0;
                     @endphp
                     @foreach($data['all_rows'] as $row)
                         <tr>
                             <td style="text-align: center">{{$row->transaction_date}}</td>
-                            @php
-                                $private_transport = $row->num_private_transport * $row->price_private_transport ;
-                                $total_private_transport +=   $private_transport ;
-                            @endphp
-                            <td style="text-align: center">{{$row->num_private_transport}} * {{$row->price_private_transport}} = {{ $private_transport }}</td>
-                            @php
-                                $taxi_motorbike = $row->num_taxi_motorbike * $row->price_taxi_motorbike ;
-                                $total_taxi_motorbike +=   $taxi_motorbike ;
-                            @endphp
-                            <td style="text-align: center">{{$row->num_taxi_motorbike}} * {{$row->price_taxi_motorbike}} = {{ $taxi_motorbike }}</td>
-                            @php
-                                $private_without_exam = $row->num_private_without_exam * $row->price_private_without_exam ;
-                                $total_private_without_exam +=   $private_without_exam ;
-                            @endphp
-                            <td style="text-align: center">{{$row->num_private_without_exam}} * {{$row->price_private_without_exam}} = {{ $private_without_exam }}</td>
-                            @php
-                                $permissions_data = $row->num_permissions_data * $row->price_permissions_data ;
-                                $total_permissions_data +=   $permissions_data ;
-                            @endphp
-                            <td style="text-align: center">{{$row->num_permissions_data}} * {{$row->price_permissions_data}} = {{ $permissions_data }}</td>
-                            @php
-                                $driving = $row->num_driving * $row->price_driving ;
-                                $total_driving +=   $driving ;
-                            @endphp
-                            <td style="text-align: center">{{$row->num_driving}} * {{$row->price_driving}} = {{ $driving }}</td>
-                            <td style="text-align: center">{{$private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving }}</td>
+                            @if($type == null || $type == "private_transport")
+                                @php
+                                    $private_transport = $row->num_private_transport * $row->price_private_transport ;
+                                    $total_private_transport +=   $private_transport ;
+                                @endphp
+                                <td style="text-align: center">{{$row->num_private_transport}}
+                                    * {{$row->price_private_transport}} = {{ $private_transport }}</td>
+                            @endif
+                            @if($type == null || $type == "taxi_motorbike")
+                                @php
+                                    $taxi_motorbike = $row->num_taxi_motorbike * $row->price_taxi_motorbike ;
+                                    $total_taxi_motorbike +=   $taxi_motorbike ;
+                                @endphp
+                                <td style="text-align: center">{{$row->num_taxi_motorbike}}
+                                    * {{$row->price_taxi_motorbike}}
+                                    = {{ $taxi_motorbike }}</td>
+                            @endif
+                            @if($type == null || $type == "private_without_exam")
+                                @php
+                                    $private_without_exam = $row->num_private_without_exam * $row->price_private_without_exam ;
+                                    $total_private_without_exam +=   $private_without_exam ;
+                                @endphp
+                                <td style="text-align: center">{{$row->num_private_without_exam}}
+                                    * {{$row->price_private_without_exam}} = {{ $private_without_exam }}</td>
+                            @endif
+                            @if($type == null || $type == "permissions_data")
+                                @php
+                                    $permissions_data = $row->num_permissions_data * $row->price_permissions_data ;
+                                    $total_permissions_data +=   $permissions_data ;
+                                @endphp
+                                <td style="text-align: center">{{$row->num_permissions_data}}
+                                    * {{$row->price_permissions_data}} = {{ $permissions_data }}</td>
+                            @endif
+                            @if($type == null || $type == "driving")
+                                @php
+                                    $driving = $row->num_driving * $row->price_driving ;
+                                    $total_driving +=   $driving ;
+                                @endphp
+                                <td style="text-align: center">{{$row->num_driving}} * {{$row->price_driving}}
+                                    = {{ $driving }}</td>
+                            @endif
+                            @if($type == null)
+                                <td style="text-align: center">{{$private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving }}</td>
+                            @endif
+                            @if($type == null || $type == "private_transport")
+                                <td style="text-align: center">{{$private_transport }}</td>
+
+                            @endif
+                            @if($type == null || $type == "taxi_motorbike")
+                                <td style="text-align: center">{{  $taxi_motorbike }}</td>
+
+                            @endif
+                            @if($type == null || $type == "private_without_exam")
+                                <td style="text-align: center">{{ $private_without_exam }}</td>
+
+                            @endif
+                            @if($type == null || $type == "permissions_data")
+                                <td style="text-align: center">{{$permissions_data  }}</td>
+
+                            @endif
+                            @if($type == null || $type == "driving")
+                                <td style="text-align: center">{{ $driving }}</td>
+
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>
@@ -133,7 +181,8 @@
         <div class="row">
             <div>
                 <h5 style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;">
-                    الاجمالي :  {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving  }}
+                    الاجمالي
+                    : {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving  }}
                 </h5>
             </div>
 
