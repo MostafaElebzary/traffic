@@ -32,6 +32,11 @@
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             التاريخ
                         </th>
+                        @if($type==null || $type=="license")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                               تقديم رخصة
+                            </th>
+                        @endif
                         @if($type==null || $type=="private_transport")
                             <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                                 ملاكي - نقل
@@ -71,11 +76,19 @@
                         $total_private_without_exam = 0;
                         $total_permissions_data = 0;
                         $total_driving = 0;
+                        $total_license = 0;
                     @endphp
                     @foreach($data['all_rows'] as $row)
                         <tr>
                             <td style="text-align: center">{{$row->transaction_date}}</td>
-
+                            @if($type==null || $type=="license")
+                                @php
+                                    $license = $row->num_license * $row->price_license ;
+                                    $total_license +=   $license ;
+                                @endphp
+                                <td style="text-align: center">{{$row->num_license}}
+                                    * {{$row->price_license}} = {{ $license }}</td>
+                            @endif
                             @if($type==null || $type=="private_transport")
                                 @php
                                     $private_transport = $row->num_private_transport * $row->price_private_transport ;
@@ -139,7 +152,7 @@
 
                             @endif
                             @if($type==null)
-                                <td style="text-align: center">{{$private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving }}</td>
+                                <td style="text-align: center">{{$private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving + $license }}</td>
 
                             @endif
                         </tr>
@@ -153,6 +166,11 @@
                     style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;width:100%">
                     <thead>
                     <tr>
+                        @if($type ==null || $type=="license")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                اجمالي تقديم رخصة
+                            </th>
+                        @endif
                         @if($type ==null || $type=="private_transport")
                             <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                                 اجمالي ملاكي - نقل
@@ -182,6 +200,9 @@
                     </thead>
                     <tbody>
                     <tr>
+                        @if($type ==null || $type=="license")
+                            <td style="text-align: center">{{ $total_license }}</td>
+                        @endif
                         @if($type ==null || $type=="private_transport")
                             <td style="text-align: center">{{ $total_private_transport }}</td>
                         @endif
@@ -206,7 +227,7 @@
             <div>
                 <h5 style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;">
                     الاجمالي
-                    : {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving  }}
+                    : {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving + $total_license }}
                 </h5>
             </div>
 

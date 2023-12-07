@@ -51,6 +51,8 @@ class TransactionsController extends Controller
                 'num_driving' => 'required|numeric',
                 'price_driving' => 'required|numeric',
                 'expenses' => 'nullable|numeric',
+                'num_license' => 'nullable|numeric',
+                'price_license' => 'nullable|numeric',
 
 
             ];
@@ -94,7 +96,8 @@ class TransactionsController extends Controller
                 'price_driving' => 'required|numeric',
                 'expenses' => 'nullable|numeric',
                 'id' => 'required|exists:transactions,id',
-
+                'num_license' => 'nullable|numeric',
+                'price_license' => 'nullable|numeric',
 
             ];
 

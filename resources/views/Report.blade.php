@@ -32,6 +32,9 @@
                             المركز
                         </th>
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                            تقديم رخصة
+                        </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             ملاكي - نقل
                         </th>
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
@@ -57,6 +60,7 @@
                     <tbody>
                     @php
                         $total_private_transport = 0;
+                        $total_license = 0;
                         $total_taxi_motorbike = 0;
                         $total_private_without_exam = 0;
                         $total_permissions_data = 0;
@@ -89,6 +93,12 @@
                         @endif
                         <tr>
                             <td style="text-align: center">{{$row->State->name}}</td>
+                            @php
+                                $license = $row->num_license * $row->price_license ;
+                                $total_license +=   $license ;
+                            @endphp
+                            <td style="text-align: center">{{$row->num_license}}
+                                * {{$row->price_license}} = {{ $license }}</td>
                             @php
                                 $private_transport = $row->num_private_transport * $row->price_private_transport ;
                                 $total_private_transport +=   $private_transport ;
@@ -126,7 +136,7 @@
                             @endphp
                             <td style="text-align: center">{{$row->expenses }}</td>
                             @php
-                                $total_row = $private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving - $row->expenses  ;
+                                $total_row = $license + $private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving - $row->expenses  ;
                                 $total_date += $total_row ;
                             @endphp
                             <td style="text-align: center">{{ $total_row}}</td>
@@ -152,6 +162,9 @@
                     <thead>
                     <tr>
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                            اجمالي تقديم رخصة
+                        </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             اجمالي ملاكي - نقل
                         </th>
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
@@ -173,6 +186,7 @@
                     </thead>
                     <tbody>
                     <tr>
+                        <td style="text-align: center">{{ $total_license }}</td>
                         <td style="text-align: center">{{ $total_private_transport }}</td>
                         <td style="text-align: center">{{ $total_taxi_motorbike }}</td>
                         <td style="text-align: center">{{ $total_private_without_exam }}</td>
@@ -188,7 +202,7 @@
             <div>
                 <h5 style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align: center;">
                     الاجمالي
-                    : {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving - $total_expenses }}
+                    : {{  $total_private_transport + $total_taxi_motorbike + $total_private_without_exam + $total_permissions_data + $total_driving + $total_license - $total_expenses }}
                 </h5>
             </div>
 

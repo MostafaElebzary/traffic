@@ -22,7 +22,7 @@ class ReportsController extends Controller
                 'state_id' => 'required|exists:states,id',
                 'from' => 'required',
                 'to' => 'required|after_or_equal:' . $request->from,
-                'type' => 'nullable|in:private_transport,taxi_motorbike,private_without_exam,permissions_data,driving,expenses'
+                'type' => 'nullable|in:private_transport,taxi_motorbike,private_without_exam,permissions_data,driving,expenses,license'
             ];
             $validate = Validator::make($request->all(), $rule);
             if ($validate->fails()) {
@@ -34,7 +34,8 @@ class ReportsController extends Controller
             $data['sum_price_private_without_exam'] = Transaction::where('state_id', $request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->sum('price_private_without_exam');
             $data['sum_price_permissions_data'] = Transaction::where('state_id', $request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->sum('price_permissions_data');
             $data['sum_price_driving'] = Transaction::where('state_id', $request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->sum('price_driving');
-            $data['total'] = $data['sum_price_private_transport'] + $data['sum_price_taxi_motorbike'] + $data['sum_price_private_without_exam'] + $data['sum_price_permissions_data'] + $data['sum_price_driving'];
+            $data['sum_price_license'] = Transaction::where('state_id', $request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->sum('price_license');
+            $data['total'] = $data['sum_price_private_transport'] + $data['sum_price_taxi_motorbike'] + $data['sum_price_private_without_exam'] + $data['sum_price_permissions_data'] + $data['sum_price_driving'] + $data['sum_price_license'];
 
             $data['all_rows'] = Transaction::where('state_id', $request->state_id)->whereBetween('transaction_date', [$request->from, $request->to])->orderBy('transaction_date', 'asc')->get();
 
@@ -69,7 +70,8 @@ class ReportsController extends Controller
             $data['sum_price_private_without_exam'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->sum('price_private_without_exam');
             $data['sum_price_permissions_data'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->sum('price_permissions_data');
             $data['sum_price_driving'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->sum('price_driving');
-            $data['total'] = $data['sum_price_private_transport'] + $data['sum_price_taxi_motorbike'] + $data['sum_price_private_without_exam'] + $data['sum_price_permissions_data'] + $data['sum_price_driving'];
+            $data['sum_price_license'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->sum('price_license');
+            $data['total'] = $data['sum_price_private_transport'] + $data['sum_price_taxi_motorbike'] + $data['sum_price_private_without_exam'] + $data['sum_price_permissions_data'] + $data['sum_price_driving'] + $data['sum_price_license'];
             $data['all_rows'] = Transaction::whereBetween('transaction_date', [$request->from, $request->to])->orderBy('transaction_date', 'asc')->get();
 
             $pdf = PDF::loadView('Report', ['data' => $data, 'from' => $request->from, 'to' => $request->to]);
