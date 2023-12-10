@@ -32,6 +32,10 @@ class TransactionResource extends JsonResource
             'expenses' => (double)$this->expenses,
             'num_license' => (double)$this->num_license,
             'price_license' => (double)$this->price_license,
+            'num_extinguisher' => (double)$this->num_extinguisher,
+            'price_extinguisher' => (double)$this->price_extinguisher,
+            'num_internet_card' => (double)$this->num_internet_card,
+            'price_internet_card' => (double)$this->price_internet_card,
 
         ];
     }

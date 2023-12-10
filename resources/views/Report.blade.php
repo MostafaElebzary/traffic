@@ -32,6 +32,12 @@
                             المركز
                         </th>
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                            طفاية
+                        </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                            كارت نت
+                        </th>
+                        <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             تقديم رخصة
                         </th>
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
@@ -60,6 +66,8 @@
                     <tbody>
                     @php
                         $total_private_transport = 0;
+                        $total_extinguisher = 0;
+                        $total_internet_card = 0;
                         $total_license = 0;
                         $total_taxi_motorbike = 0;
                         $total_private_without_exam = 0;
@@ -76,7 +84,7 @@
                                     <td style="text-align: center" colspan="8">الاجمالي : {{$total_date}} </td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: center" colspan="8"> </td>
+                                    <td style="text-align: center" colspan="8"></td>
                                 </tr>
                                 @php
                                     $total_date = 0 ;
@@ -93,6 +101,19 @@
                         @endif
                         <tr>
                             <td style="text-align: center">{{$row->State->name}}</td>
+                            @php
+                                $extinguisher = $row->num_extinguisher * $row->price_extinguisher ;
+                                $total_extinguisher +=   $extinguisher ;
+                            @endphp
+                            <td style="text-align: center">{{$row->num_extinguisher}}
+                                * {{$row->price_extinguisher}} = {{ $extinguisher }}</td>
+
+                            @php
+                                $internet_card = $row->num_internet_card * $row->price_internet_card ;
+                                $total_internet_card +=   $internet_card ;
+                            @endphp
+                            <td style="text-align: center">{{$row->num_internet_card}}
+                                * {{$row->price_internet_card}} = {{ $internet_card }}</td>
                             @php
                                 $license = $row->num_license * $row->price_license ;
                                 $total_license +=   $license ;
@@ -145,12 +166,12 @@
 
                     @endforeach
                     @if($first_date != '')
-                            <tr>
-                                <td style="text-align: center" colspan="8">الاجمالي : {{$total_date}} </td>
-                            </tr>
-                            @php
-                                $total_date = 0 ;
-                            @endphp
+                        <tr>
+                            <td style="text-align: center" colspan="8">الاجمالي : {{$total_date}} </td>
+                        </tr>
+                        @php
+                            $total_date = 0 ;
+                        @endphp
                     @endif
                     </tbody>
                 </table>

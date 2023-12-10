@@ -32,9 +32,21 @@
                         <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                             التاريخ
                         </th>
+                        @if($type==null || $type=="extinguisher")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                طفاية
+                            </th>
+                        @endif
+                        @if($type==null || $type=="internet_card")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                كارت النت
+                            </th>
+                        @endif
+
+
                         @if($type==null || $type=="license")
                             <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
-                               تقديم رخصة
+                                تقديم رخصة
                             </th>
                         @endif
                         @if($type==null || $type=="private_transport")
@@ -77,11 +89,36 @@
                         $total_permissions_data = 0;
                         $total_driving = 0;
                         $total_license = 0;
+                        $total_extinguisher = 0;
+                        $total_internet_card = 0;
                     @endphp
                     @foreach($data['all_rows'] as $row)
                         <tr>
                             <td style="text-align: center">{{$row->transaction_date}}</td>
-                            @if($type==null || $type=="license")
+
+                            @if($type==null || $type=="extinguisher")
+                                @php
+                                    $extinguisher = $row->num_extinguisher * $row->price_extinguisher ;
+                                    $total_extinguisher +=   $extinguisher ;
+                                @endphp
+                                <td style="text-align: center">{{$row->num_extinguisher}}
+                                    * {{$row->price_extinguisher}} = {{ $extinguisher }}</td>
+                            @endif
+
+                            @if($type==null || $type=="internet_card")
+                                @php
+                                    $internet_card = $row->num_internet_card * $row->price_internet_card ;
+                                    $total_internet_card +=   $internet_card ;
+                                @endphp
+                                <td style="text-align: center">{{$row->num_internet_card}}
+                                    * {{$row->price_internet_card}} = {{ $internet_card }}</td>
+                            @endif
+
+
+
+
+
+                        @if($type==null || $type=="license")
                                 @php
                                     $license = $row->num_license * $row->price_license ;
                                     $total_license +=   $license ;
@@ -152,7 +189,7 @@
 
                             @endif
                             @if($type==null)
-                                <td style="text-align: center">{{$private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving + $license }}</td>
+                                <td style="text-align: center">{{$private_transport + $taxi_motorbike + $private_without_exam + $permissions_data + $driving + $license+ $extinguisher + $internet_card }}</td>
 
                             @endif
                         </tr>
@@ -166,7 +203,17 @@
                     style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;width:100%">
                     <thead>
                     <tr>
-                        @if($type ==null || $type=="license")
+                        @if($type == null || $type=="extinguisher")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                اجمالي الطفايات
+                            </th>
+                        @endif
+                        @if($type == null || $type=="internet_card")
+                            <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
+                                اجمالي كارت النت
+                            </th>
+                        @endif
+                        @if($type == null || $type=="license")
                             <th style="font-family: DejaVu Sans, sans-serif ;font-size: 13px;text-align:center">
                                 اجمالي تقديم رخصة
                             </th>
@@ -200,6 +247,14 @@
                     </thead>
                     <tbody>
                     <tr>
+                        @if($type ==null || $type=="extinguisher")
+                            <td style="text-align: center">{{ $total_extinguisher }}</td>
+                        @endif
+                        @if($type ==null || $type=="internet_card")
+                            <td style="text-align: center">{{ $total_internet_card }}</td>
+                        @endif
+
+
                         @if($type ==null || $type=="license")
                             <td style="text-align: center">{{ $total_license }}</td>
                         @endif

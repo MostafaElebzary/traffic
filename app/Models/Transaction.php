@@ -15,7 +15,11 @@ class Transaction extends Model
         'num_taxi_motorbike', 'price_taxi_motorbike',
         'num_private_without_exam', 'price_private_without_exam',
         'num_permissions_data', 'price_permissions_data',
-        'num_driving', 'price_driving','expenses','num_license','price_license'
+        'num_driving', 'price_driving','expenses',
+        'num_license','price_license',
+        'num_extinguisher','price_extinguisher',
+        'num_internet_card','price_internet_card'
+
     ];
 
 

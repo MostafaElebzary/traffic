@@ -53,6 +53,10 @@ class TransactionsController extends Controller
                 'expenses' => 'nullable|numeric',
                 'num_license' => 'nullable|numeric',
                 'price_license' => 'nullable|numeric',
+                'num_extinguisher' => 'nullable|numeric',
+                'price_extinguisher' => 'nullable|numeric',
+                'num_internet_card' => 'nullable|numeric',
+                'price_internet_card' => 'nullable|numeric',
 
 
             ];
@@ -98,6 +102,10 @@ class TransactionsController extends Controller
                 'id' => 'required|exists:transactions,id',
                 'num_license' => 'nullable|numeric',
                 'price_license' => 'nullable|numeric',
+                'num_extinguisher' => 'nullable|numeric',
+                'price_extinguisher' => 'nullable|numeric',
+                'num_internet_card' => 'nullable|numeric',
+                'price_internet_card' => 'nullable|numeric',
 
             ];
 
@@ -122,7 +130,6 @@ class TransactionsController extends Controller
         $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
         $user = check_jwt($jwt);
         if ($user) {
-
             $data = Transaction::where('id', $id)->first();
             if (!$data) {
                 return msgdata(not_found(), "العملية غير موجودة", (object)[]);
